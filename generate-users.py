@@ -6,7 +6,7 @@ def dump_data(data, filename):
     # Write data to a CSV file
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['username', 'password', 'firstname', 'email'])  # Header row
+        writer.writerow(['username', 'password', 'firstname', 'lastname'])  # Header row
         writer.writerows(data)
 
 def generate_password():
@@ -20,9 +20,9 @@ for i in range(10000):
     username = ''.join(random.choices(string.ascii_lowercase, k=5))
     password = generate_password()
     first_name = ''.join(random.choices(string.ascii_uppercase, k=5))
-    email = f"user{i}@vu.nl"
+    last_name = ''.join(random.choices(string.ascii_uppercase, k=5))
 
-    data.append([username, password, first_name, email])
+    data.append([username, password, first_name, last_name])
 
 # Dump all data into a single CSV file
 dump_data(data, 'all_users.csv')
