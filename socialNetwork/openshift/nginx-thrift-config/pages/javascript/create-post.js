@@ -3,7 +3,7 @@ function clickEvent() {
         // console.log(document);
         var formData = new FormData(document.getElementById('media-form'));
         const Http = new XMLHttpRequest();
-        const url = 'http://' + window.location.hostname + ':8081/upload-media';
+        const url = 'http://' + window.location.hostname + ':9234/upload-media';
         Http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var resp = JSON.parse(Http.responseText);

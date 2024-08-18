@@ -1,7 +1,7 @@
 name: media-frontend
 
 ports:
-  - port: 8081
+  - port: 9234
     targetPort: 8080
 
 container:
@@ -9,7 +9,7 @@ container:
   imageVersion: xenial
   name: media-frontend
   ports: 
-  - containerPort: 8081
+  - containerPort: 9234
   env:
   - name: fqdn_suffix
     value: ".{{ .Release.Namespace }}.svc.cluster.local"
