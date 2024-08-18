@@ -31,7 +31,7 @@ Supported actions:
 ### Before you start
 
 * Install Docker and Docker Compose.
-* Make sure the following ports are available: port `8080` for Nginx frontend, `8081` for media frontend and `16686` for Jaeger.
+* Make sure the following ports are available: port `8080` for Nginx frontend, `9234` for media frontend and `16686` for Jaeger.
 
 ### Start docker containers
 

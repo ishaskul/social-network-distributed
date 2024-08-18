@@ -153,7 +153,7 @@
     },
     "media-frontend": {
       "addr": "media-frontend",
-      "port": 8081,
+      "port": 9234,
       "connections": 512,
       "timeout_ms": 10000,
       "keepalive_ms": 10000
