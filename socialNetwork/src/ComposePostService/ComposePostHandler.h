@@ -350,6 +350,14 @@ void ComposePostHandler::_UploadHomeTimelineHelper(
                                             user_mentions_id, writer_text_map);
   } catch (...) {
     _home_timeline_client_pool->Remove(home_timeline_client_wrapper);
+     
+     
+     
+     
+     
+     
+     
+     
      LOG(error) << "Exception caught: " << typeid(e).name() << " - " << e.what();
      throw;
   }

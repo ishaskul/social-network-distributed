@@ -81,18 +81,18 @@ function _M.ComposePost()
           {}, {}, tonumber(post.post_type), carrier)
     end
 
-    -- if not status then
-    --   ngx.status = ngx.HTTP_INTERNAL_SERVER_ERROR
-    --   if (ret.message) then
-    --     ngx.say("compost_post failure: " .. ret.message)
-    --     ngx.log(ngx.ERR, "compost_post failure: " .. ret.message)
-    --   else
-    --     ngx.say("compost_post failure: " .. ret)
-    --     ngx.log(ngx.ERR, "compost_post failure: " .. ret)
-    --   end
-    --   client.iprot.trans:close()
-    --   ngx.exit(ngx.status)
-    -- end
+    if not status then
+      ngx.status = ngx.HTTP_INTERNAL_SERVER_ERROR
+      if (ret.message) then
+        ngx.say("compost_post failure: " .. ret.message)
+        ngx.log(ngx.ERR, "compost_post failure: " .. ret.message)
+      else
+        ngx.say("compost_post failure: " .. ret)
+        ngx.log(ngx.ERR, "compost_post failure: " .. ret)
+      end
+      client.iprot.trans:close()
+      ngx.exit(ngx.status)
+    end
 
     GenericObjectPool:returnConnection(client)
     ngx.status = ngx.HTTP_OK
