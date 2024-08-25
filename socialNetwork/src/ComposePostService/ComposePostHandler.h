@@ -350,8 +350,8 @@ void ComposePostHandler::_UploadHomeTimelineHelper(
                                             user_mentions_id, writer_text_map);
   } catch (...) {
     _home_timeline_client_pool->Remove(home_timeline_client_wrapper);
-    LOG(error) << "Failed to write home timeline to home-timeline-service";
-    throw;
+     LOG(error) << "Exception caught: " << typeid(e).name() << " - " << e.what();
+     throw;
   }
   _home_timeline_client_pool->Keepalive(home_timeline_client_wrapper);
 
