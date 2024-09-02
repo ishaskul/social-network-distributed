@@ -10,7 +10,7 @@ def get_list_of_containers_and_pids():
     hostname = get_hostname()
     
     # Open a CSV file to write the data
-    with open('container_pids.csv', mode='w', newline='') as file:
+    with open(f'./stress_test_data/compose_post_scenario/system_cpu_data/container_pids_{hostname}.csv', mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['hostname', 'container_name', 'pid'])
         pids_list = ""
