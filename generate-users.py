@@ -1,6 +1,7 @@
 import csv
 import random
 import string
+import sys
 
 def dump_data(data, filename):
     # Write data to a CSV file
@@ -14,17 +15,31 @@ def generate_password():
     password_characters = string.ascii_letters  # + string.digits # + string.punctuation
     return ''.join(random.choice(password_characters) for i in range(password_length))
 
-# Generate random data for the CSV file
-data = []
-for i in range(10000):
-    username = ''.join(random.choices(string.ascii_lowercase, k=5))
-    password = generate_password()
-    first_name = ''.join(random.choices(string.ascii_uppercase, k=5))
-    last_name = ''.join(random.choices(string.ascii_uppercase, k=5))
+def main():
+    if len(sys.argv) != 3:
+        print(f"Usage: {sys.argv[0]} <number_of_entries> <output_filename>")
+        sys.exit(1)
 
-    data.append([username, password, first_name, last_name])
+    try:
+        num_entries = int(sys.argv[1])
+    except ValueError:
+        print("The number of entries must be an integer.")
+        sys.exit(1)
 
-# Dump all data into a single CSV file
-dump_data(data, 'all_users.csv')
+    filename = sys.argv[2]
 
-print("CSV file 'all_users.csv' created successfully with 10,000 random users.")
+    # Generate random data for the CSV file
+    data = []
+    for i in range(num_entries):
+        username = ''.join(random.choices(string.ascii_lowercase, k=5))
+        password = generate_password()
+        first_name = ''.join(random.choices(string.ascii_uppercase, k=5))
+        last_name = ''.join(random.choices(string.ascii_uppercase, k=5))
+
+        data.append([username, password, first_name, last_name])
+
+    # Dump all data into a single CSV file
+    dump_data(data, filename)
+
+if __name__ == "__main__":
+    main()

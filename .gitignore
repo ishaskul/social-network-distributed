@@ -5,3 +5,8 @@
 
 bin
 build
+
+wrk2/deps/LuaJIT/
+wrk2/obj/
+wrk2/wrk
+wrk2/Makefile
