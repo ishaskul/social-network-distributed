@@ -589,6 +589,7 @@ void SocialGraphHandler::GetFollowers(
 
       // Update Redis
       std::string key = std::to_string(user_id) + ":followers";
+      LOG(info) << "Redis key: " << key;
       auto redis_insert_span = opentracing::Tracer::Global()->StartSpan(
           "social_graph_redis_insert_client",
           {opentracing::ChildOf(&span->context())});
