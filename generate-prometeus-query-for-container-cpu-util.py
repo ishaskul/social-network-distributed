@@ -17,12 +17,8 @@ def get_list_of_containers_and_pids():
         for container in dockerClient.containers.list():
             name = container.name
             pid = container.attrs['State']['Pid']
-            monitoring = ["cadvisor", "prometheus", "heisenberg"]
-            if any(container_name in name for container_name in monitoring):
-                continue
-            else:
-                writer.writerow([hostname, name, pid])
-                pids_list = pids_list + f"{pid}|"
+            writer.writerow([hostname, name, pid])
+            pids_list = pids_list + f"{pid}|"
                 
         # Remove the last "|" from the list
         pids_list = pids_list.rstrip('|')
