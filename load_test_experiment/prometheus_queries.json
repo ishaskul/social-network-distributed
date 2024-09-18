@@ -1,0 +1,26 @@
+{
+    "bookstore": {
+        "cpu_utilization": {
+            "gl2": "avg_over_time(scaph_process_cpu_usage_percentage{instance=\"145.108.225.7:8080\", exe=~\"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java|/usr/bin/telegraf|/bin/consul|/usr/local/bin/scaphandre|/bin/prometheus|/usr/lib/jvm/java-21-openjdk/bin/java|/usr/bin/influxd|/usr/bin/kapacitord|/usr/bin/chronograf|/bin/registry\"}[15s]) OR avg_over_time(scaph_process_cpu_usage_percentage{instance=\"145.108.225.7:8080\", cmdline=~\"mysqld--max_connections=3000000\",exe=~\"/usr/sbin/mysqld\"}[15s])",
+            "gl5": "avg_over_time(scaph_process_cpu_usage_percentage{instance=\"145.108.225.16:8080\", exe=~\"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java|/usr/bin/telegraf|/bin/consul|/usr/local/bin/scaphandre|/bin/prometheus|/usr/lib/jvm/java-21-openjdk/bin/java|/usr/bin/influxd|/usr/bin/kapacitord|/usr/bin/chronograf|/bin/registry\"}[15s]) OR avg_over_time(scaph_process_cpu_usage_percentage{instance=\"145.108.225.16:8080\", cmdline=~\"mysqld--max_connections=3000000\",exe=~\"/usr/sbin/mysqld\"}[15s])",
+            "gl6": "avg_over_time(scaph_process_cpu_usage_percentage{instance=\"145.108.225.17:8080\", exe=~\"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java|/usr/bin/telegraf|/bin/consul|/usr/local/bin/scaphandre|/bin/prometheus|/usr/lib/jvm/java-21-openjdk/bin/java|/usr/bin/influxd|/usr/bin/kapacitord|/usr/bin/chronograf|/bin/registry\"}[15s]) OR avg_over_time(scaph_process_cpu_usage_percentage{instance=\"145.108.225.17:8080\", cmdline=~\"mysqld--max_connections=3000000\",exe=~\"/usr/sbin/mysqld\"}[15s])"
+        },
+        "power_consumption": {
+            "gl2": "avg_over_time(scaph_process_power_consumption_microwatts{instance=\"145.108.225.7:8080\", exe=~\"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java|/usr/bin/telegraf|/bin/consul|/usr/local/bin/scaphandre|/bin/prometheus|/usr/lib/jvm/java-21-openjdk/bin/java|/usr/bin/influxd|/usr/bin/kapacitord|/usr/bin/chronograf|/bin/registry\"}[15s]) / 1000000 OR avg_over_time(scaph_process_power_consumption_microwatts{instance=\"145.108.225.7:8080\", cmdline=~\"mysqld--max_connections=3000000\",exe=~\"/usr/sbin/mysqld\"}[15s]) / 1000000",
+            "gl5": "avg_over_time(scaph_process_power_consumption_microwatts{instance=\"145.108.225.16:8080\", exe=~\"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java|/usr/bin/telegraf|/bin/consul|/usr/local/bin/scaphandre|/bin/prometheus|/usr/lib/jvm/java-21-openjdk/bin/java|/usr/bin/influxd|/usr/bin/kapacitord|/usr/bin/chronograf|/bin/registry\"}[15s]) / 1000000 OR avg_over_time(scaph_process_power_consumption_microwatts{instance=\"145.108.225.16:8080\", cmdline=~\"mysqld--max_connections=3000000\",exe=~\"/usr/sbin/mysqld\"}[15s]) / 1000000",
+            "gl6": "avg_over_time(scaph_process_power_consumption_microwatts{instance=\"145.108.225.17:8080\", exe=~\"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java|/usr/bin/telegraf|/bin/consul|/usr/local/bin/scaphandre|/bin/prometheus|/usr/lib/jvm/java-21-openjdk/bin/java|/usr/bin/influxd|/usr/bin/kapacitord|/usr/bin/chronograf|/bin/registry\"}[15s]) / 1000000 OR avg_over_time(scaph_process_power_consumption_microwatts{instance=\"145.108.225.17:8080\", cmdline=~\"mysqld--max_connections=3000000\",exe=~\"/usr/sbin/mysqld\"}[15s]) / 1000000"
+        }
+    },
+    "social_network": {
+        "cpu_utilization": {
+            "gl2": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"3946516|3945900|3945827|3945990|3945430|3945281|3945604|3944422|3944416|947733|179002\"}[15s])",
+            "gl5": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"2099293|2098949|2098934|2098561|2098348|2098176|2097972|2097853|2097302|2097125|2096954|1045720\"}[15s])",
+            "gl6": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"1832953|1831123|1830814|1830645|1830480|1830290|1830135|1829932|1829851|1829692|1649009|224042\"}[15s])"
+        },
+        "power_consumption": {
+            "gl2": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"3946516|3945900|3945827|3945990|3945430|3945281|3945604|3944422|3944416|947733|179002\"}[15s]) / 1000000",
+            "gl5": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"2099293|2098949|2098934|2098561|2098348|2098176|2097972|2097853|2097302|2097125|2096954|1045720\"}[15s]) / 1000000",
+            "gl6": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"1832953|1831123|1830814|1830645|1830480|1830290|1830135|1829932|1829851|1829692|1649009|224042\"}[15s]) / 1000000"
+        }
+    }
+}
