@@ -13,14 +13,14 @@
     },
     "social_network": {
         "cpu_utilization": {
-            "gl2": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"3946516|3945900|3945827|3945990|3945430|3945281|3945604|3944422|3944416|947733|179002\"}[15s])",
-            "gl5": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"2099293|2098949|2098934|2098561|2098348|2098176|2097972|2097853|2097302|2097125|2096954|1045720\"}[15s])",
-            "gl6": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"1832953|1831123|1830814|1830645|1830480|1830290|1830135|1829932|1829851|1829692|1649009|224042\"}[15s])"
+            "gl2": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"47648|47557|47823|47368|46974|46780|46567|46655|45438|947733|179002\"}[15s]) OR label_replace(sum(avg_over_time(scaph_process_cpu_usage_percentage{exe=~\"/usr/local/openresty/nginx/sbin/nginx\",instance=\"145.108.225.7:8080\"}[15s])), \"custom_label\", \"nginx_cpu\", \"\", \"\")",
+            "gl5": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"3891299|3890993|3890735|3890422|3890226|3889970|3889810|3889113|3888983|3888858|3888505|1045720\"}[15s]) OR label_replace(sum(avg_over_time(scaph_process_cpu_usage_percentage{exe=~\"/usr/local/openresty/nginx/sbin/nginx\",instance=\"145.108.225.16:8080\"}[15s])), \"custom_label\", \"nginx_cpu\", \"\", \"\")",
+            "gl6": "avg_over_time(scaph_process_cpu_usage_percentage{pid=~\"2404756|2404424|2404535|2404113|2404214|2403496|2403252|2403113|2402730|2402610|1649009|224042\"}[15s]) OR label_replace(sum(avg_over_time(scaph_process_cpu_usage_percentage{exe=~\"/usr/local/openresty/nginx/sbin/nginx\",instance=\"145.108.225.17:8080\"}[15s])), \"custom_label\", \"nginx_cpu\", \"\", \"\")"
         },
         "power_consumption": {
-            "gl2": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"3946516|3945900|3945827|3945990|3945430|3945281|3945604|3944422|3944416|947733|179002\"}[15s]) / 1000000",
-            "gl5": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"2099293|2098949|2098934|2098561|2098348|2098176|2097972|2097853|2097302|2097125|2096954|1045720\"}[15s]) / 1000000",
-            "gl6": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"1832953|1831123|1830814|1830645|1830480|1830290|1830135|1829932|1829851|1829692|1649009|224042\"}[15s]) / 1000000"
+            "gl2": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"47648|47557|47823|47368|46974|46780|46567|46655|45438|947733|179002\"}[15s]) / 1000000 OR label_replace(sum(avg_over_time(scaph_process_power_consumption_microwatts{exe=~\"/usr/local/openresty/nginx/sbin/nginx\",instance=\"145.108.225.7:8080\"}[15s])), \"custom_label\", \"nginx_power_consumption\", \"\", \"\") / 1000000",
+            "gl5": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"3891299|3890993|3890735|3890422|3890226|3889970|3889810|3889113|3888983|3888858|3888505|1045720\"}[15s]) / 1000000 OR label_replace(sum(avg_over_time(scaph_process_power_consumption_microwatts{exe=~\"/usr/local/openresty/nginx/sbin/nginx\",instance=\"145.108.225.16:8080\"}[15s])), \"custom_label\", \"nginx_power_consumption\", \"\", \"\") / 1000000",
+            "gl6": "avg_over_time(scaph_process_power_consumption_microwatts{pid=~\"2404756|2404424|2404535|2404113|2404214|2403496|2403252|2403113|2402730|2402610|1649009|224042\"}[15s]) / 1000000 OR label_replace(sum(avg_over_time(scaph_process_power_consumption_microwatts{exe=~\"/usr/local/openresty/nginx/sbin/nginx\",instance=\"145.108.225.17:8080\"}[15s])), \"custom_label\", \"nginx_power_consumption\", \"\", \"\") / 1000000"
         }
     }
 }
