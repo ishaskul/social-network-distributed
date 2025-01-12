@@ -6,6 +6,9 @@ import subprocess
 from datetime import datetime, timedelta, timezone
 import os
 from requests.utils import quote
+gl2_ip = "145.108.225.7"
+gl5_ip = "145.108.225.16"
+gl6_ip = "145.108.225.17"
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Accept arguments")
@@ -13,7 +16,8 @@ def parse_arguments():
     parser.add_argument('--scenario', type=str, required=True, help="scenario class name: valid values - 'social_network.ComposePostSimulation','social_network.FollowUsersSimulation','bookstore.UserRegistrationSimulation','bookstore.BuyBooksSimulation'")
     parser.add_argument('--ramp_up_duration', type=int, required=True, help="scenario ramp up duration")
     parser.add_argument('--no_of_users', type=int, required=True, help="no of users that are to be ramped up")
-    parser.add_argument('--output_folder', type=str, required=True, help="Name of the output folder")    
+    parser.add_argument('--output_folder', type=str, required=True, help="Name of the output folder")
+    parser.add_argument('--iterations', type=str, required=True, help="Number of iterations you want to run for the experiment")    
     return parser.parse_args()
 
 
@@ -39,11 +43,16 @@ def trigger_github_workflow(token, repo_owner, repo_name, workflow_id, ref, simu
 
     return response
 
-def run_system_measurements(output_folder):
+def profile_system_resource_utilization_measurements(output_folder):
     cpu_utilization_command = f"./measure_system_cpu_uttilization.sh {output_folder}/system_cpu_data"
     power_consumption_command = f"./measure_system_power_consumption.sh {output_folder}/power_consumption_data"
+    trigger_system_resource_utilization_measurement_on_gl5_command = f"curl --location 'http://{gl5_ip}:9119/measure' --header 'Content-Type: application/json' --data '{{\"output_folder\":\"{output_folder}\"}}'"
+    trigger_system_resource_utilization_measurement_on_gl6_command = f"curl --location 'http://{gl6_ip}:9119/measure' --header 'Content-Type: application/json' --data '{{\"output_folder\":\"{output_folder}\"}}'"
     subprocess.Popen(cpu_utilization_command, shell=True)
     subprocess.Popen(power_consumption_command, shell=True)
+    subprocess.Popen(trigger_system_resource_utilization_measurement_on_gl5_command, shell=True)
+    subprocess.Popen(trigger_system_resource_utilization_measurement_on_gl6_command, shell=True)
+
 
 def wait_until(seconds):
     start_time = datetime.now(timezone.utc)
@@ -89,20 +98,37 @@ if __name__ == "__main__":
     ramp_up_duration = args.ramp_up_duration
     no_of_users = args.no_of_users
     output_folder_path = args.output_folder
-    if not os.path.exists(output_folder_path):
-        os.makedirs(output_folder_path)
-    servers = ['gl2','gl5','gl6']
-    cool_down_time = 180
-    start_time = datetime.now(timezone.utc)
-    start_time_in_iso_format = start_time.strftime('%Y-%m-%dT%H:%M:%SZ')
-    end_time = start_time + timedelta(seconds=ramp_up_duration) +timedelta(seconds=cool_down_time + 30)
-    end_time_in_iso_format = end_time.strftime('%Y-%m-%dT%H:%M:%SZ')
-    print(start_time_in_iso_format)
-    print(end_time_in_iso_format)
-    # #GITHUB Personal Access Token (PAT) is stored as a linux environment variable by running : export GITHUB_PAT="<my-token>"
-    # #The PAT is retrieved below using the os module
-    print(trigger_github_workflow(os.getenv('GITHUB_PAT'),"ishaskul","gatling-simulations-bs-sn","116115030","main",scenario,no_of_users, ramp_up_duration, "all_users.csv"))
-    run_system_measurements(output_folder_path)
+    iterations = int(args.iterations)
+
+    for i in range(1, iterations + 1):
+        data_output_folder_path = os.path.join(output_folder_path, str(i))
+        if not os.path.exists(output_folder_path):
+            os.makedirs(output_folder_path)
+        servers = ['gl2','gl5','gl6']
+        cool_down_time = 360
+        start_time = datetime.now(timezone.utc)
+        start_time_in_iso_format = start_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+        end_time = start_time + timedelta(seconds=ramp_up_duration) +timedelta(seconds=cool_down_time + 30)
+        end_time_in_iso_format = end_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+        print(start_time_in_iso_format)
+        print(end_time_in_iso_format)
+        # Trigger GitHub workflow
+        # #GITHUB Personal Access Token (PAT) is stored as a linux environment variable by running : export GITHUB_PAT="<my-token>"
+        # #The PAT is retrieved below using the os module
+        response = trigger_github_workflow(
+            os.getenv('GITHUB_PAT'),
+            "ishaskul",
+            "gatling-simulations-bs-sn",
+            "116115030",
+            "main",
+            scenario,
+            no_of_users,
+            ramp_up_duration,
+            "all_users_25k.csv"
+        )
+        print(response)
+    #print(trigger_github_workflow(os.getenv('GITHUB_PAT'),"ishaskul","gatling-simulations-bs-sn","116115030","main",scenario,no_of_users, ramp_up_duration, "all_users.csv"))
+    profile_system_resource_utilization_measurements(output_folder_path)
     time.sleep(5)
     wait_until(ramp_up_duration + cool_down_time)
     run_promethues_queries_for_app(app, servers, start_time_in_iso_format, end_time_in_iso_format, output_folder_path)
